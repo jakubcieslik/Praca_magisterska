@@ -1,6 +1,6 @@
-x = out.yout{1}.Values.Data;
-y = out.yout{2}.Values.Data;
-z = out.yout{3}.Values.Data;
+x = out_train.yout{1}.Values.Data;
+y = out_train.yout{2}.Values.Data;
+z = out_train.yout{3}.Values.Data;
 
 plot3(x, y, z)
 xlabel('x')

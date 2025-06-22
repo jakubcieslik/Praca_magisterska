@@ -13,7 +13,7 @@ YTrain = {outputSeq'};
 % Sieć
 layers = [
     sequenceInputLayer(3)
-    lstmLayer(100, 'OutputMode', 'sequence')
+    lstmLayer(150, 'OutputMode', 'sequence')
     fullyConnectedLayer(3)
     regressionLayer];
 
@@ -27,11 +27,4 @@ options = trainingOptions('adam', ...
 net = trainNetwork(XTrain, YTrain, layers, options);
 
 % Zapisz sieć do pliku
-save('rossler_lstm_net.mat', 'net');
-
-% --- Zapis danych uczących do pliku ---
-train_data.x = x;
-train_data.y = y;
-train_data.z = z;
-train_data.t = out_train.yout{1}.Values.Time;
-save('rossler_training_data.mat', 'train_data');
+save('LSTM_2_50_150_0_100k.mat', 'net');
