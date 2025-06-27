@@ -1,9 +1,6 @@
-%Trained networks folder
-modelsFolder = 'trained_models';
-ext = '.mat';
-
 %Choosing all network files
-modelFiles = dir(fullfile(modelsFolder, ['*' ext]));
+ext = '.mat';
+modelFiles = dir(['*' ext]);
 
 %Get testing data
 x = out.yout{1}.Values.Data;
@@ -13,7 +10,7 @@ t = out.yout{1}.Values.Time;
 
 inputSeq = [x, y, z];
 targetX = x(2:end);
-inputSeq = inputSeq(1:end-1, :);    % dopasuj długość
+inputSeq = inputSeq(1:end-1, :);    % adjust length
 XTest = {inputSeq'};
 YTest = {targetX'};
 
@@ -22,7 +19,7 @@ stats = struct();
 YPreds = {};
 
 for k = 1:length(modelFiles)
-    modelPath = fullfile(modelsFolder, modelFiles(k).name);
+    modelPath = modelFiles(k).name;
     load(modelPath, 'net');
 
     YPred = predict(net, XTest{1}, 'MiniBatchSize', 1);
@@ -50,7 +47,7 @@ for k = 1:length(YPreds)
     plot(test_t, YPreds{k}, '--', 'Color', colors(k,:), ...
         'DisplayName', sprintf('%d: %s network', k, stats(k).name));
 end
-title('Comparison of prediction waveform by networks varying number of neurons parameters')
+title('Porównanie wyników predykcji zmiennej X')
 xlabel('Time')
 ylabel('x(t+1)')
 legend('Interpreter', 'none')
@@ -67,4 +64,3 @@ f.ColumnName = {'Model', 'RMSE', 'MAE', 'Max Error'};
 f.ColumnWidth = {250, 'auto', 'auto', 'auto'};
 f.Position = [20 20 800 200];
 f.RowName = [];
-title('Network efficiency comparison')
