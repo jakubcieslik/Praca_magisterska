@@ -1,20 +1,21 @@
-%This program is designed to train 5 networks based on data stored in 5
-%datasets called: out_20, out_25, out_30, out_35, out_38. Data sets are made by
+%This program is designed to train 6 networks based on data stored in 6
+%datasets called: out_0, out_0_001, out_0_002, out_0_005, out_0_01, out_0_1. Data sets are made by
 %Rossler_model program and each set coresponds to different values of
-%parameter a. Value of a is also written in name of a set. On example
-%out_20 has a value = 0.2, out_25 has value a = 0.25 etc.
-%This program will work properly only if you have this 5 sets of data with
-%names as given above stored in matlab workspace memory.If u dont
+%noise amplitude. Level of noise is also written in name of a set. On example
+%out_0_001 has a noise level = 0.001, out_0_01 has value a = 0.01 etc.
+%This program will work properly only if you have this 6 sets of data with
+%exact names as given above stored in matlab workspace memory. If u dont
 %have this files you have to make this by running Rossler_model programm
-%and saving output with proper names (out_20, out_25 etc.)
+%and saving output with proper names.
 
 %Getting parameters from another file
-run('Rossler_LSTM_training_params_a.m');
+run('Rossler_LSTM_training_params_noise.m');
 
-%Subsequent values of a (multiplied by 100 to avoid dots in name of file)
-a_values = [20, 25, 30, 35, 38];
+%Subsequent values of noise level (multiplied by 1000 to avoid dots in name of file)
+NoiseLevel = [0, 1, 2, 5, 10, 100];
 
-for i = 1:length(a_values)
+
+for i = 1:length(NoiseLevel)
     out = eval(sprintf('out_%d', a_values(i)));
     
     %Writing data from Simulink ports to variables
@@ -49,6 +50,6 @@ for i = 1:length(a_values)
     net = trainNetwork(XTrain, YTrain, layers, options);
     
     %Writing network to file for later testing
-    name_of_network = sprintf('LSTM_%d_70_90_0_100k', a_values(i));
+    name_of_network = sprintf('LSTM_30_70_90_%d_100k', NoiseLevel(i));
     save([name_of_network '.mat'], 'net');
 end

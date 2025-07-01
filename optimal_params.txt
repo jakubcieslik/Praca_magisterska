@@ -1,0 +1,5 @@
+a = 0.3;
+neurons = 90;
+epochs = 70;
+NoiseLevel = 0.002;
+NoiseBit = 1;

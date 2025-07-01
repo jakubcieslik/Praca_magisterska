@@ -2,4 +2,4 @@
 %can be changed by 'LSTM_neurons' variable. Number of epochs can be changed
 %by 'epochs' variable.
 LSTM_neurons = 90;
-epochs = [10, 30, 50, 70, 90, 110];
+epochs = 70;
